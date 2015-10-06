@@ -11,6 +11,7 @@
 
 TBitField::TBitField(int len)
 {
+
 }
 
 TBitField::TBitField(const TBitField &bf) // конструктор копирования
@@ -83,8 +84,10 @@ TBitField TBitField::operator~(void) // отрицание
 
 istream &operator>>(istream &istr, TBitField &bf) // ввод
 {
+  
 }
 
 ostream &operator<<(ostream &ostr, const TBitField &bf) // вывод
 {
+  cout << "{" << "}\n";
 }
