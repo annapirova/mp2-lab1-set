@@ -1,0 +1,3 @@
+﻿  test_tbitfield.cpp
+  test_tset.cpp
+LINK : fatal error LNK1181: cannot open input file 'gtest.lib'

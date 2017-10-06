@@ -260,8 +260,8 @@ TEST(TSet, can_intersect_two_sets_of_equal_size)
 
 TEST(TSet, can_intersect_two_sets_of_non_equal_size)
 {
-  const int size1 = 5, size2 = 7;
-  TSet set1(size1), set2(size2), set3(size1), expSet(size2);
+  const int size1 = 5, size2 = 7; 
+  TSet set1(size1), set2(size2), set3(size1), expSet(size1); //!!@@!
   // set1 = {1, 2, 4}
   set1.InsElem(1);
   set1.InsElem(2);

@@ -7,6 +7,24 @@ TEST(TBitField, can_create_bitfield_with_positive_length)
   ASSERT_NO_THROW(TBitField bf(3));
 }
 
+
+/*
+TEST(TBitField, tipo_svoy_test_zero_set) // / /  / / / / / / / /  // // / / / / / / / /
+{
+	TBitField bf(200);
+	TBitField bf2(250);
+	TBitField bf3(10);
+
+	bf.SetBit(5);
+	bf2.SetBit(105);
+	bf3 = bf&bf2;
+
+	EXPECT_EQ(2 , bf2.GetBit(105));
+	EXPECT_EQ(2, bf.GetBit(200));
+
+}
+*/
+
 TEST(TBitField, can_get_length)
 {
   TBitField bf(3);
@@ -218,9 +236,11 @@ TEST(TBitField, and_operator_applied_to_bitfields_of_non_equal_size)
   bf2.SetBit(3);
 
   // expBf = 00010
+  expBf.SetBit(1);
+  expBf.SetBit(2);
   expBf.SetBit(3);
 
-  EXPECT_EQ(expBf, bf1 & bf2);
+  EXPECT_EQ(expBf, bf1 | bf2);
 }
 
 TEST(TBitField, can_invert_bitfield)
@@ -249,25 +269,6 @@ TEST(TBitField, can_invert_large_bitfield)
   expNegBf.ClrBit(35);
 
   EXPECT_EQ(expNegBf, negBf);
-}
-
-TEST(TBitField, invert_plus_and_operator_on_different_size_bitfield)
-{
-  const int firstSze = 4, secondSize = 8;
-  TBitField firstBf(firstSze), negFirstBf(firstSze), secondBf(secondSize), testBf(secondSize);
-  // firstBf = 0001
-  firstBf.SetBit(0);
-  negFirstBf = ~firstBf;
-  // negFirstBf = 1110
-
-  // secondBf = 00011000
-  secondBf.SetBit(3);
-  secondBf.SetBit(4);
-
-  // testBf = 00001000
-  testBf.SetBit(3);
-
-  EXPECT_EQ(secondBf & negFirstBf, testBf);
 }
 
 TEST(TBitField, can_invert_many_random_bits_bitfield)
