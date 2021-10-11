@@ -1,2 +1,0 @@
-C:\Users\User\mp2-lab1-set\sln\vc15\Debug\gtest.pdb
-C:\Users\User\mp2-lab1-set\sln\vc15\gtest\Debug\gtest.pdb
