@@ -7,15 +7,15 @@
 
 #include "tbitfield.h"
 
-#define BITS_IN_ONE_MEM (sizeof(TELEM) * 8)
+#define BITS_IN_ONE_MEM (sizeof(TELEM) * 16)
 
 TBitField::TBitField(int len)
 {	if (len < 0)
 		throw "Negative len in bf"; 
 
 	BitLen = len;
-//	MemLen = (len + 31) >> 5;
-	MemLen = /*(len - 1) / (8 * sizeof(TELEM)) + 1*/(BitLen + 32 - 1) / 32;
+	MemLen = (len + 31) >> 5;
+//	MemLen = (BitLen + 32 - 1) / 32;
 //	MemLen = (len - 1) / BITS_IN_ONE_MEM + 1;
 	pMem = new TELEM[len];
 	if (pMem != NULL)
@@ -47,7 +47,7 @@ int TBitField::GetMemIndex(const int n) const // индекс Мем для би
 
 TELEM TBitField::GetMemMask(const int n) const // битовая маска для бита n
 {
-	return 1 << (n % BITS_IN_ONE_MEM);
+	return (TELEM)1 << (n % BITS_IN_ONE_MEM);
 }
 
 // доступ к битам битового поля
