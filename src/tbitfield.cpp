@@ -7,16 +7,16 @@
 
 #include "tbitfield.h"
 
-#define BITS_IN_ONE_MEM (sizeof(TELEM) * 16)
+#define BITS_IN_ONE_MEM (sizeof(TELEM) * 8)
 
 TBitField::TBitField(int len)
 {	if (len < 0)
 		throw "Negative len in bf"; 
 
 	BitLen = len;
-	MemLen = (len + 31) >> 5;
+//	MemLen = (len + 31) >> 5;
 //	MemLen = (BitLen + 32 - 1) / 32;
-//	MemLen = (len - 1) / BITS_IN_ONE_MEM + 1;
+	MemLen = (len - 1) / BITS_IN_ONE_MEM + 1;
 	pMem = new TELEM[len];
 	if (pMem != NULL)
 		for (int i = 0; i < MemLen; i++)
