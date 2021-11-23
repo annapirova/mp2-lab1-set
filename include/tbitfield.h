@@ -12,8 +12,8 @@
 
 using namespace std;
 
-typedef unsigned int TELEM;
-
+typedef unsigned long long TELEM;
+ 
 class TBitField
 {
 private:

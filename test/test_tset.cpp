@@ -1,7 +1,7 @@
-#include "pch.h"
-
-//#include "../gtest/gtest.h"
-
+//#include "pch.h"
+ 
+#include "../gtest/gtest.h"
+ 
 
 #include "tset.h"
 
@@ -10,7 +10,7 @@ TEST(TSet, can_get_max_power_set)
 {
   const int size = 5;
   TSet set(size);
-
+   
   EXPECT_EQ(size, set.GetMaxPower());
 }
 
