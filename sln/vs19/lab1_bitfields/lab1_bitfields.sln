@@ -9,8 +9,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bitfield", "bitfield\bitfie
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sample-Test2", "Sample-Test2\Sample-Test2.vcxproj", "{57C8F188-51A7-4A53-9436-56FDB1FCA0DE}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sample-Test3", "Sample-Test3\Sample-Test3.vcxproj", "{9D261C02-D8BF-46D8-9DAE-0EFD348D4625}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64

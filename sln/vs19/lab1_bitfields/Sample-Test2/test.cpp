@@ -1,8 +1,9 @@
 #include "pch.h"
+#include ""
+#include "C:\Users\79960\OneDrive\Рабочий стол\mp2-lab1-set\include/tbitfield.h"
 
-#include "tbitfield.h"
-
-TEST(TestCaseName, TestName) {
+TEST(TestCaseName, TestName) 
+{
   EXPECT_EQ(1, 1);
   EXPECT_TRUE(true);
 }
