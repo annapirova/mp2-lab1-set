@@ -11,9 +11,20 @@
 
 TBitField::TBitField(int len)
 {
-	BitLen = len;
-	MemLen = len / (8 * sizeof(TELEM)) + 1;
-	pMem = new TELEM [MemLen] { 0 };
+
+
+	if (len > 0)
+	{
+
+		BitLen = len;
+		MemLen = len / (8 * sizeof(TELEM)) + 1; 
+		pMem = new TELEM[MemLen]{0};
+	}
+	else
+	{
+		throw "Error";
+	}
+
 
 }
 
@@ -168,7 +179,7 @@ TBitField TBitField::operator~(void) // отрицание
 	for (int i = 0; i < MemLen - 1; i++)
 		res.pMem[i] = ~res.pMem[i];
 	if (MemLen > 0)
-		for (int i = (MemLen - 1) * BITS_IN_ONE_MEM; i < res.BitLen; i++)
+		for (int i = (MemLen - 1) * (sizeof(TELEM) * 8); i < res.BitLen; i++)
 			if (GetBit(i))
 				res.ClrBit(i);
 			else

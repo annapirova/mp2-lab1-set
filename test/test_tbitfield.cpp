@@ -1,13 +1,13 @@
-#include "pch.h"
+//#include "pch.h"
 
-//#include "../gtest/gtest.h"
+#include "../gtest/gtest.h"
 
 #include "tbitfield.h"
 
 
 TEST(TBitField, can_create_bitfield_with_positive_length)
 {
-  ASSERT_NO_THROW(TBitField bf(3));
+  ASSERT_NO_THROW(TBitField bf(-3));
 }
 
 TEST(TBitField, can_get_length)
