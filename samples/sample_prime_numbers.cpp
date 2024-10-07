@@ -14,7 +14,7 @@
 
 #include "tbitfield.h"
 
-int main1()
+int main()
 {
   int n, m, k, count;
 
@@ -96,7 +96,7 @@ int main()
 
 
 
-int main()
+int main1()
 {
 	TBitField bf(1);
 
