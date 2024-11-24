@@ -1,0 +1,1 @@
+/c/MinGW/mingw64/bin/g++.exe CMakeFiles/sample_prime_numbers.dir/sample_prime_numbers.cpp.o -o ../bin/sample_prime_numbers.exe  ../lib/libset.a 

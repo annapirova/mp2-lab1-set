@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/User/Documents/rep2c/mp2-lab1-set/include/tbitfield.h
+iostream
+-
+
+/home/User/Documents/rep2c/mp2-lab1-set/include/tset.h
+tbitfield.h
+/home/User/Documents/rep2c/mp2-lab1-set/include/tbitfield.h
+
+/home/User/Documents/rep2c/mp2-lab1-set/samples/sample_prime_numbers.cpp
+iomanip
+-
+tbitfield.h
+/home/User/Documents/rep2c/mp2-lab1-set/samples/tbitfield.h
+tset.h
+/home/User/Documents/rep2c/mp2-lab1-set/samples/tset.h
+

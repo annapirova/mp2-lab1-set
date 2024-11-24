@@ -1,0 +1,44 @@
+[
+{
+  "directory": "/home/User/Documents/rep2c/mp2-lab1-set/build/src",
+  "command": "/c/MinGW/mingw64/bin/g++.exe  -I/home/User/Documents/rep2c/mp2-lab1-set/include -I/home/User/Documents/rep2c/mp2-lab1-set/gtest  -o CMakeFiles/set.dir/tbitfield.cpp.o -c /home/User/Documents/rep2c/mp2-lab1-set/src/tbitfield.cpp",
+  "file": "/home/User/Documents/rep2c/mp2-lab1-set/src/tbitfield.cpp",
+  "output": "src/CMakeFiles/set.dir/tbitfield.cpp.o"
+},
+{
+  "directory": "/home/User/Documents/rep2c/mp2-lab1-set/build/src",
+  "command": "/c/MinGW/mingw64/bin/g++.exe  -I/home/User/Documents/rep2c/mp2-lab1-set/include -I/home/User/Documents/rep2c/mp2-lab1-set/gtest  -o CMakeFiles/set.dir/tset.cpp.o -c /home/User/Documents/rep2c/mp2-lab1-set/src/tset.cpp",
+  "file": "/home/User/Documents/rep2c/mp2-lab1-set/src/tset.cpp",
+  "output": "src/CMakeFiles/set.dir/tset.cpp.o"
+},
+{
+  "directory": "/home/User/Documents/rep2c/mp2-lab1-set/build/samples",
+  "command": "/c/MinGW/mingw64/bin/g++.exe  -I/home/User/Documents/rep2c/mp2-lab1-set/include -I/home/User/Documents/rep2c/mp2-lab1-set/gtest  -o CMakeFiles/sample_prime_numbers.dir/sample_prime_numbers.cpp.o -c /home/User/Documents/rep2c/mp2-lab1-set/samples/sample_prime_numbers.cpp",
+  "file": "/home/User/Documents/rep2c/mp2-lab1-set/samples/sample_prime_numbers.cpp",
+  "output": "samples/CMakeFiles/sample_prime_numbers.dir/sample_prime_numbers.cpp.o"
+},
+{
+  "directory": "/home/User/Documents/rep2c/mp2-lab1-set/build/gtest",
+  "command": "/c/MinGW/mingw64/bin/g++.exe  -I/home/User/Documents/rep2c/mp2-lab1-set/include -I/home/User/Documents/rep2c/mp2-lab1-set/gtest  -o CMakeFiles/gtest.dir/gtest-all.cc.o -c /home/User/Documents/rep2c/mp2-lab1-set/gtest/gtest-all.cc",
+  "file": "/home/User/Documents/rep2c/mp2-lab1-set/gtest/gtest-all.cc",
+  "output": "gtest/CMakeFiles/gtest.dir/gtest-all.cc.o"
+},
+{
+  "directory": "/home/User/Documents/rep2c/mp2-lab1-set/build/test",
+  "command": "/c/MinGW/mingw64/bin/g++.exe  -I/home/User/Documents/rep2c/mp2-lab1-set/include -I/home/User/Documents/rep2c/mp2-lab1-set/gtest  -o CMakeFiles/test_set.dir/test_main.cpp.o -c /home/User/Documents/rep2c/mp2-lab1-set/test/test_main.cpp",
+  "file": "/home/User/Documents/rep2c/mp2-lab1-set/test/test_main.cpp",
+  "output": "test/CMakeFiles/test_set.dir/test_main.cpp.o"
+},
+{
+  "directory": "/home/User/Documents/rep2c/mp2-lab1-set/build/test",
+  "command": "/c/MinGW/mingw64/bin/g++.exe  -I/home/User/Documents/rep2c/mp2-lab1-set/include -I/home/User/Documents/rep2c/mp2-lab1-set/gtest  -o CMakeFiles/test_set.dir/test_tbitfield.cpp.o -c /home/User/Documents/rep2c/mp2-lab1-set/test/test_tbitfield.cpp",
+  "file": "/home/User/Documents/rep2c/mp2-lab1-set/test/test_tbitfield.cpp",
+  "output": "test/CMakeFiles/test_set.dir/test_tbitfield.cpp.o"
+},
+{
+  "directory": "/home/User/Documents/rep2c/mp2-lab1-set/build/test",
+  "command": "/c/MinGW/mingw64/bin/g++.exe  -I/home/User/Documents/rep2c/mp2-lab1-set/include -I/home/User/Documents/rep2c/mp2-lab1-set/gtest  -o CMakeFiles/test_set.dir/test_tset.cpp.o -c /home/User/Documents/rep2c/mp2-lab1-set/test/test_tset.cpp",
+  "file": "/home/User/Documents/rep2c/mp2-lab1-set/test/test_tset.cpp",
+  "output": "test/CMakeFiles/test_set.dir/test_tset.cpp.o"
+}
+]
