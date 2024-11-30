@@ -1,6 +1,6 @@
-#include "../gtest/gtest.h"
 #include "tset.h"
 
+#include <gtest.h>
 
 TEST(TSet, can_get_max_power_set)
 {
@@ -285,11 +285,11 @@ TEST(TSet, check_negation_operator)
 {
   const int size = 4;
   TSet set(size), set1(size), expSet(size);
-   
+  // set1 = {1, 3}
   set.InsElem(1);
   set.InsElem(3);
   set1 = ~set;
- 
+  // expSet = {0, 2}
   expSet.InsElem(0);
   expSet.InsElem(2);
 

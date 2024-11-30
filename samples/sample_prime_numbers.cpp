@@ -14,7 +14,7 @@
 
 #include "tbitfield.h"
 
-int main1()
+int main()
 {
   int n, m, k, count;
 
@@ -49,7 +49,6 @@ int main1()
     }
   cout << endl;
   cout << "В первых " << n << " числах " << count << " простых" << endl;
-  return 0;
 }
 #else
 
@@ -93,12 +92,3 @@ int main()
 }
 
 #endif
-
-
-
-int main()
-{
-	TBitField bf(1);
-
-	return 0;
-}
