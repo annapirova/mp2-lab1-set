@@ -144,16 +144,15 @@ TBitField TBitField::operator&(const TBitField& bf) {
 }
 
 TBitField TBitField::operator~() {
-    TBitField temp(BitLen);  
+    TBitField temp(BitLen);
 
-    for (int i = 0; i < MemLen; i++) {
-        temp.pMem[i] = ~pMem[i];  
-    }
-
-    
-    TELEM mask = (TELEM(1) << (BitLen % (sizeof(TELEM) * 8))) - 1;
-    if (BitLen % (sizeof(TELEM) * 8) != 0) {
-        temp.pMem[MemLen - 1] &= mask;  
+    for (int i = 0; i < BitLen; i++) {
+        if (GetBit(i) == 0) {
+            temp.SetBit(i);
+        }
+        else {
+            temp.ClrBit(i);
+        }
     }
 
     return temp;
