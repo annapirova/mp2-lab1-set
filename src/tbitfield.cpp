@@ -6,95 +6,189 @@
 // Битовое поле
 
 #include "tbitfield.h"
+#include <algorithm>
+
+using namespace std;
 
 #define BITS_IN_ONE_MEM (sizeof(TELEM) * 8)
 
-TBitField::TBitField(int len)
-{
-
+template <typename TELEM> TBitField<TELEM>::TBitField(int len) {
+  if (len < 1) {
+    throw invalid_argument("Len must be >=1");
+  }
+  BitLen = len;
+  MemLen = (len + (BITS_IN_ONE_MEM - 1)) / (BITS_IN_ONE_MEM);
+  pMem = new TELEM[MemLen];
+  for (int i = 0; i < MemLen; i++) {
+    pMem[i] = 0;
+  }
 }
 
-TBitField::TBitField(const TBitField& bf) // конструктор копирования
+template <typename TELEM>
+TBitField<TELEM>::TBitField(const TBitField &bf) // конструктор копирования
 {
+  this->BitLen = bf.BitLen;
+  this->MemLen = bf.MemLen;
+  this->pMem = new TELEM[MemLen];
+  for (int i = 0; i < MemLen; i++) {
+    this->pMem[i] = bf.pMem[i];
+  }
 }
 
-TBitField::~TBitField()
-{
+template <typename TELEM> TBitField<TELEM>::~TBitField() {
+  delete[] pMem;
+  pMem = nullptr;
 }
 
-int TBitField::GetMemIndex(const int n) const // индекс Мем для бита n
+template <typename TELEM>
+int TBitField<TELEM>::GetMemIndex(const int n) const // индекс Мем для бита n
 {
- return 0;
+  if (n >= this->BitLen) {
+    throw invalid_argument("Incorrect input");
+  }
+  int result = (n + (sizeof(n) * 8) - 1) / (BITS_IN_ONE_MEM);
+  return result;
 }
-
-TELEM TBitField::GetMemMask(const int n) const // битовая маска для бита n
+template <typename TELEM>
+TELEM TBitField<TELEM>::GetMemMask(
+    const int n) const // битовая маска для бита n
 {
-
-	return 0;
+  TELEM res = (TELEM)1 << n % (BITS_IN_ONE_MEM);
+  return res;
 }
 
 // доступ к битам битового поля
-
-int TBitField::GetLength(void) const // получить длину (к-во битов)
+template <typename TELEM>
+int TBitField<TELEM>::GetLength(void) const // получить длину (к-во битов)
 {
-	return 0;
+  return MemLen;
 }
 
-void TBitField::SetBit(const int n) // установить бит
+template <typename TELEM>
+void TBitField<TELEM>::SetBit(const int n) // установить бит
 {
-	if ((n < 0) || (n > BitLen))
-		throw 2;
+  if ((n < 0) || (n > BitLen))
+    throw invalid_argument("Incorrect Input");
+  pMem[GetMemIndex(n)] |= GetMemMask(n);
 }
 
-void TBitField::ClrBit(const int n) // очистить бит
+template <typename TELEM>
+void TBitField<TELEM>::ClrBit(const int n) // очистить бит
 {
+  pMem[GetMemIndex(n)] &= ~GetMemMask(n);
 }
 
-int TBitField::GetBit(const int n) const // получить значение бита
+template <typename TELEM>
+int TBitField<TELEM>::GetBit(const int n) const // получить значение бита
 {
-	return 0;
+	TELEM res1=pMem[GetMemIndex(n)];
+	TELEM res2=1<<GetMemMask(n);
+	TELEM res3=res1&res2;
+	res3=res3>>GetMemMask(n);
+	if (res3=0){
+		return 0;
+	}
+	else{
+		return 1;
+	}
+	
+  return 0;
 }
 
 // битовые операции
-
-TBitField& TBitField::operator=(const TBitField & bf) // присваивание
+template <typename TELEM>
+TBitField<TELEM> &
+TBitField<TELEM>::operator=(const TBitField &bf) // присваивание
 {
-	return *this;
+	this->MemLen=bf.MemLen;
+	this->BitLen=bf.BitLen;
+	for (int i=0;i<MemLen;i++){
+		this->pMem[i]=bf.pMem[i];
+	}
+  return *this;
 }
 
-int TBitField::operator==(const TBitField & bf) const // сравнение
+template <typename TELEM>
+int TBitField<TELEM>::operator==(const TBitField &bf) const // сравнение
 {
-	return 0;
+	int flag=1;
+	if (this->BitLen!=bf.BitLen){
+		flag=0;
+	}
+	if (this->MemLen!=bf.MemLen){
+		flag=0;
+	}
+	if(flag==1){
+		for (int i=0;i<MemLen;i++){
+			if (this->pMem[i]!=bf.pMem[i]){
+				flag=0;
+				break;
+			}
+		}
+	}
+  return flag;
 }
 
-int TBitField::operator!=(const TBitField & bf) const // сравнение
+template <typename TELEM>
+int TBitField<TELEM>::operator!=(const TBitField &bf) const // сравнение
 {
-	return 0;
+  int flag=1;
+	if (this->BitLen==bf.BitLen){
+		flag=0;
+	}
+	if (this->MemLen==bf.MemLen){
+		flag=0;
+	}
+	if(flag==0){
+		for (int i=0;i<MemLen;i++){
+			if (this->pMem[i]!=bf.pMem[i]){
+				flag=0;
+				break;
+			}
+		}
+	}
+  return flag;
 }
 
-TBitField TBitField::operator|(const TBitField & bf) // операция "или"
-{
-	return TBitField(0);
-}
-
-TBitField TBitField::operator&(const TBitField & bf) // операция "и"
-{
-	return TBitField(0);
-}
-
-TBitField TBitField::operator~(void) // отрицание
+template <typename TELEM>
+TBitField<TELEM>
+TBitField<TELEM>::operator|(const TBitField &bf) // операция "или"
 {
   return TBitField(0);
 }
 
+template <typename TELEM>
+TBitField<TELEM>
+TBitField<TELEM>::operator&(const TBitField &bf) // операция "и"
+{
+  return TBitField(0);
+}
+
+template <typename TELEM>
+TBitField<TELEM> TBitField<TELEM>::operator~(void) // отрицание
+{
+	TBitField result(*this);
+  for (int i = 0; i < MemLen - 1; i++) {
+    pMem[i] = ~pMem[i];
+  }
+  int extraBits = BitLen % BITS_IN_ONE_MEM;
+  if (extraBits != 0) {
+    TELEM mask = (TELEM(1) << extraBits) - 1;
+    result.pMem[MemLen - 1] &= mask;
+  }
+  return result;
+}
+
 // ввод/вывод
 
-istream& operator>>(istream & istr, TBitField & bf) // ввод
+template <typename TELEM>
+istream &operator>>(istream &istr, TBitField<TELEM> &bf) // ввод
 {
   return istr;
 }
 
-ostream& operator<<(ostream & ostr, const TBitField & bf) // вывод
+template <typename TELEM>
+ostream &operator<<(ostream &ostr, const TBitField<TELEM> &bf) // вывод
 {
-	return ostr;
+  return ostr;
 }

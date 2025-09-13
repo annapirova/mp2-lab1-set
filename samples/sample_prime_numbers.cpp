@@ -14,16 +14,18 @@
 
 #include "tbitfield.h"
 
+typedef unsigned int TELEM;
+
 int main1()
 {
   int n, m, k, count;
-
+  
   setlocale(LC_ALL, "Russian");
   cout << "Тестирование программ поддержки битового поля" << endl;
   cout << "             Решето Эратосфена" << endl;
   cout << "Введите верхнюю границу целых значений - ";
   cin  >> n;
-  TBitField s(n + 1);
+  TBitField<TELEM> s(n + 1);
   // заполнение множества
   for (m = 2; m <= n; m++)
     s.SetBit(m);
@@ -98,7 +100,7 @@ int main()
 
 int main()
 {
-	TBitField bf(1);
+	TBitField<TELEM> bf(1);
 
 	return 0;
 }

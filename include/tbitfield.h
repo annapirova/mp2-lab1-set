@@ -12,8 +12,11 @@
 
 using namespace std;
 
-typedef unsigned int TELEM;
 
+template <typename TELEM> class TBitField;
+
+
+template <typename TELEM>
 class TBitField
 {
 private:
