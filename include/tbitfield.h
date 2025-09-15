@@ -13,8 +13,14 @@
 using namespace std;
 
 
+
 template <typename TELEM> class TBitField;
 
+template <typename TELEM>
+istream& operator>>(istream& istr, TBitField<TELEM>& bf);
+
+template <typename TELEM>
+ostream& operator<<(ostream& ostr, const TBitField<TELEM>& bf);
 
 template <typename TELEM>
 class TBitField
@@ -48,9 +54,10 @@ public:
     
   TBitField  operator~(void);                // отрицание                  (#С)
 
-  friend istream &operator>>(istream &istr, TBitField &bf);       //      (#О7)
-  friend ostream &operator<<(ostream &ostr, const TBitField &bf); //      (#П4)
-};
+   friend istream& operator>> <TELEM>(istream& istr, TBitField<TELEM>& bf);
+  friend ostream& operator<< <TELEM>(ostream& ostr, const TBitField<TELEM>& bf);};
+
+
 // Структура хранения битового поля
 //   бит.поле - набор битов с номерами от 0 до BitLen
 //   массив pМем рассматривается как последовательность MemLen элементов

@@ -8,10 +8,17 @@
 #ifndef __SET_H__
 #define __SET_H__
 
+using namespace std;
 #include "tbitfield.h"
 
-template <typename TELEM> class TBitField;
+
 template <typename TELEM> class TSet;
+
+template <typename TELEM>
+istream& operator>>(istream& istr, TSet<TELEM>& s);
+
+template <typename TELEM>
+ostream& operator<<(ostream& ostr, const TSet<TELEM>& s);
 
 template <typename TELEM>
 class TSet
@@ -30,18 +37,17 @@ public:
   void DelElem(const int Elem);       // удалить элемент из множества
   int IsMember(const int Elem) const; // проверить наличие элемента в множестве
   // теоретико-множественные операции
-  int operator== (const TSet<TELEM> &s) const; // сравнение
-  int operator!= (const TSet<TELEM> &s) const; // сравнение
-  TSet& operator=(const TSet<TELEM> &s);  // присваивание
+  int operator== (const TSet &s) const; // сравнение
+  int operator!= (const TSet &s) const; // сравнение
+  TSet& operator=(const TSet &s);  // присваивание
   TSet operator+ (const int Elem); // объединение с элементом
                                    // элемент должен быть из того же универса
   TSet operator- (const int Elem); // разность с элементом
                                    // элемент должен быть из того же универса
-  TSet operator+ (const TSet<TELEM> &s);  // объединение
-  TSet operator* (const TSet<TELEM> &s);  // пересечение
+  TSet operator+ (const TSet &s);  // объединение
+  TSet operator* (const TSet &s);  // пересечение
   TSet operator~ (void);           // дополнение
 
-  friend istream &operator>>(istream &istr, TSet<TELEM> &bf);
-  friend ostream &operator<<(ostream &ostr, const TSet<TELEM> &bf);
-};
+ friend istream& operator>> <>(istream& istr, TSet<TELEM>& s);
+friend ostream& operator<< <>(ostream& ostr, const TSet<TELEM>& s);};
 #endif

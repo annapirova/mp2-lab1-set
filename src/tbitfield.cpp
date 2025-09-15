@@ -10,6 +10,8 @@
 
 using namespace std;
 
+template <typename TELEM> class TBitField;
+
 #define BITS_IN_ONE_MEM (sizeof(TELEM) * 8)
 
 template <typename TELEM> TBitField<TELEM>::TBitField(int len) {
@@ -81,17 +83,16 @@ void TBitField<TELEM>::ClrBit(const int n) // очистить бит
 template <typename TELEM>
 int TBitField<TELEM>::GetBit(const int n) const // получить значение бита
 {
-	TELEM res1=pMem[GetMemIndex(n)];
-	TELEM res2=1<<GetMemMask(n);
-	TELEM res3=res1&res2;
-	res3=res3>>GetMemMask(n);
-	if (res3=0){
-		return 0;
-	}
-	else{
-		return 1;
-	}
-	
+  TELEM res1 = pMem[GetMemIndex(n)];
+  TELEM res2 = 1 << GetMemMask(n);
+  TELEM res3 = res1 & res2;
+  res3 = res3 >> GetMemMask(n);
+  if (res3 = 0) {
+    return 0;
+  } else {
+    return 1;
+  }
+
   return 0;
 }
 
@@ -100,53 +101,53 @@ template <typename TELEM>
 TBitField<TELEM> &
 TBitField<TELEM>::operator=(const TBitField &bf) // присваивание
 {
-	this->MemLen=bf.MemLen;
-	this->BitLen=bf.BitLen;
-	for (int i=0;i<MemLen;i++){
-		this->pMem[i]=bf.pMem[i];
-	}
+  this->MemLen = bf.MemLen;
+  this->BitLen = bf.BitLen;
+  for (int i = 0; i < MemLen; i++) {
+    this->pMem[i] = bf.pMem[i];
+  }
   return *this;
 }
 
 template <typename TELEM>
 int TBitField<TELEM>::operator==(const TBitField &bf) const // сравнение
 {
-	int flag=1;
-	if (this->BitLen!=bf.BitLen){
-		flag=0;
-	}
-	if (this->MemLen!=bf.MemLen){
-		flag=0;
-	}
-	if(flag==1){
-		for (int i=0;i<MemLen;i++){
-			if (this->pMem[i]!=bf.pMem[i]){
-				flag=0;
-				break;
-			}
-		}
-	}
+  int flag = 1;
+  if (this->BitLen != bf.BitLen) {
+    flag = 0;
+  }
+  if (this->MemLen != bf.MemLen) {
+    flag = 0;
+  }
+  if (flag == 1) {
+    for (int i = 0; i < MemLen; i++) {
+      if (this->pMem[i] != bf.pMem[i]) {
+        flag = 0;
+        break;
+      }
+    }
+  }
   return flag;
 }
 
 template <typename TELEM>
 int TBitField<TELEM>::operator!=(const TBitField &bf) const // сравнение
 {
-  int flag=1;
-	if (this->BitLen==bf.BitLen){
-		flag=0;
-	}
-	if (this->MemLen==bf.MemLen){
-		flag=0;
-	}
-	if(flag==0){
-		for (int i=0;i<MemLen;i++){
-			if (this->pMem[i]!=bf.pMem[i]){
-				flag=0;
-				break;
-			}
-		}
-	}
+  int flag = 1;
+  if (this->BitLen == bf.BitLen) {
+    flag = 0;
+  }
+  if (this->MemLen == bf.MemLen) {
+    flag = 0;
+  }
+  if (flag == 0) {
+    for (int i = 0; i < MemLen; i++) {
+      if (this->pMem[i] != bf.pMem[i]) {
+        flag = 0;
+        break;
+      }
+    }
+  }
   return flag;
 }
 
@@ -167,7 +168,7 @@ TBitField<TELEM>::operator&(const TBitField &bf) // операция "и"
 template <typename TELEM>
 TBitField<TELEM> TBitField<TELEM>::operator~(void) // отрицание
 {
-	TBitField result(*this);
+  TBitField result(*this);
   for (int i = 0; i < MemLen - 1; i++) {
     pMem[i] = ~pMem[i];
   }
@@ -180,15 +181,30 @@ TBitField<TELEM> TBitField<TELEM>::operator~(void) // отрицание
 }
 
 // ввод/вывод
-
 template <typename TELEM>
-istream &operator>>(istream &istr, TBitField<TELEM> &bf) // ввод
-{
-  return istr;
+istream& operator>>(istream& istr, TBitField<TELEM>& bf) {
+    for (int i = 0; i < bf.BitLen; i++) {
+        int bit;
+        istr >> bit;
+        if (bit == 1) bf.SetBit(i);
+        else if (bit == 0) bf.ClrBit(i);
+    }
+    return istr;
 }
 
 template <typename TELEM>
-ostream &operator<<(ostream &ostr, const TBitField<TELEM> &bf) // вывод
-{
-  return ostr;
+ostream& operator<<(ostream& ostr, const TBitField<TELEM>& bf) {
+    for (int i = 0; i < bf.BitLen; i++) {
+        ostr << (bf.GetBit(i) ? '1' : '0');
+        if ((i + 1) % 8 == 0) ostr << " ";
+    }
+    return ostr;
 }
+
+template class TBitField<unsigned int>;
+template class TBitField<unsigned long>;
+
+template istream& operator>> <unsigned int>(istream& istr, TBitField<unsigned int>& bf);
+template ostream& operator<< <unsigned int>(ostream& ostr, const TBitField<unsigned int>& bf);
+template istream& operator>> <unsigned long>(istream& istr, TBitField<unsigned long>& bf);
+template ostream& operator<< <unsigned long>(ostream& ostr, const TBitField<unsigned long>& bf);

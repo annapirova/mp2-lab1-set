@@ -14,7 +14,6 @@
 
 #include "tbitfield.h"
 
-typedef unsigned int TELEM;
 
 int main1()
 {
@@ -25,7 +24,7 @@ int main1()
   cout << "             Решето Эратосфена" << endl;
   cout << "Введите верхнюю границу целых значений - ";
   cin  >> n;
-  TBitField<TELEM> s(n + 1);
+  TBitField<unsigned int> s(n + 1);
   // заполнение множества
   for (m = 2; m <= n; m++)
     s.SetBit(m);
@@ -100,7 +99,7 @@ int main()
 
 int main()
 {
-	TBitField<TELEM> bf(1);
+	TBitField<unsigned int> bf(1);
 
 	return 0;
 }
