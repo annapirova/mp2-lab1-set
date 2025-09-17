@@ -1,0 +1,6 @@
+C:/Users/Андрей/proga/Lab1/mp2-lab1-set/build_release/CMakeFiles/ALL_BUILD.dir
+C:/Users/Андрей/proga/Lab1/mp2-lab1-set/build_release/CMakeFiles/ZERO_CHECK.dir
+C:/Users/Андрей/proga/Lab1/mp2-lab1-set/build_release/src/CMakeFiles/set.dir
+C:/Users/Андрей/proga/Lab1/mp2-lab1-set/build_release/samples/CMakeFiles/sample_prime_numbers.dir
+C:/Users/Андрей/proga/Lab1/mp2-lab1-set/build_release/gtest/CMakeFiles/gtest.dir
+C:/Users/Андрей/proga/Lab1/mp2-lab1-set/build_release/test/CMakeFiles/test_set.dir
