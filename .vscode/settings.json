@@ -1,0 +1,11 @@
+{
+  "files.associations": {
+    "stdexcept": "cpp",
+    "cmath": "cpp",
+    "limits": "cpp",
+    "sstream": "cpp",
+    "utility": "cpp",
+    "iosfwd": "cpp"
+  },
+  "C_Cpp.errorSquiggles": "disabled"
+}

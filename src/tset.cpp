@@ -5,160 +5,97 @@
 //
 // Множество - реализация через битовые поля
 
-#include "../include/tset.h"
+#include "tset.h"
 
-template <typename TELEM>
-TSet<TELEM>::TSet(int mp) : MaxPower(mp), BitField(mp) {}
+TSet::TSet(int mp) : BitField(mp)
+{
+
+}
 
 // конструктор копирования
-template <typename TELEM>
-TSet<TELEM>::TSet(const TSet &s) : MaxPower(s.MaxPower), BitField(s.BitField) {}
+TSet::TSet(const TSet& s) : BitField(0)
+{
+}
 
 // конструктор преобразования типа
-template <typename TELEM>
-TSet<TELEM>::TSet(const TBitField<TELEM> &bf)
-    : MaxPower(bf.GetLength()), BitField(bf) {}
-
-template <typename TELEM> TSet<TELEM>::operator TBitField<TELEM>() {
-  return BitField;
+TSet::TSet(const TBitField& bf) : BitField(0)
+{
 }
 
-template <typename TELEM>
-int TSet<TELEM>::GetMaxPower(void) const // получить макс. к-во эл-тов
+TSet::operator TBitField()
 {
-  return MaxPower;
+	return BitField;
 }
 
-template <typename TELEM>
-int TSet<TELEM>::IsMember(const int Elem) const // элемент множества?
+int TSet::GetMaxPower(void) const // получить макс. к-во эл-тов
 {
-  if (Elem < 0 || Elem >= MaxPower)
-    throw out_of_range("Element out of range");
-  return BitField.GetBit(Elem);
+	return MaxPower;
 }
 
-template <typename TELEM>
-void TSet<TELEM>::InsElem(const int Elem) // включение элемента множества
+int TSet::IsMember(const int Elem) const // элемент множества?
 {
-  if (Elem < 0 || Elem >= MaxPower)
-    throw out_of_range("Element out of range");
-  BitField.SetBit(Elem);
+	return 0;
 }
 
-template <typename TELEM>
-void TSet<TELEM>::DelElem(const int Elem) // исключение элемента множества
+void TSet::InsElem(const int Elem) // включение элемента множества
 {
-  if (Elem < 0 || Elem >= MaxPower)
-    throw out_of_range("Element out of range");
-  BitField.ClrBit(Elem);
+}
+
+void TSet::DelElem(const int Elem) // исключение элемента множества
+{
 }
 
 // теоретико-множественные операции
 
-template <typename TELEM>
-TSet<TELEM> &TSet<TELEM>::operator=(const TSet &s) // присваивание
+TSet& TSet::operator=(const TSet& s) // присваивание
 {
-  if (this != &s) {
-    MaxPower = s.MaxPower;
-    BitField = s.BitField;
-  }
-  return *this;
+	return *this;
 }
 
-template <typename TELEM>
-int TSet<TELEM>::operator==(const TSet &s) const // сравнение
+int TSet::operator==(const TSet& s) const // сравнение
 {
-  return (MaxPower == s.MaxPower) && (BitField == s.BitField);
+	return 0;
 }
 
-template <typename TELEM>
-int TSet<TELEM>::operator!=(const TSet &s) const // сравнение
+int TSet::operator!=(const TSet& s) const // сравнение
 {
-  return !(*this == s);
+  return 0;
 }
 
-template <typename TELEM>
-TSet<TELEM> TSet<TELEM>::operator+(const TSet &s) // объединение
+TSet TSet::operator+(const TSet& s) // объединение
 {
-  int newMaxPower = max(MaxPower, s.MaxPower);
-  TSet result(newMaxPower);
-  result.BitField = BitField | s.BitField;
-  return result;
+  return TSet(0);
 }
 
-template <typename TELEM>
-TSet<TELEM> TSet<TELEM>::operator+(const int Elem) // объединение с элементом
+TSet TSet::operator+(const int Elem) // объединение с элементом
 {
-  if (Elem < 0 || Elem >= MaxPower)
-    throw out_of_range("Element out of range");
 
-  TSet result(*this);
-  result.InsElem(Elem);
-  return result;
+  return TSet(0);
 }
 
-template <typename TELEM>
-TSet<TELEM> TSet<TELEM>::operator-(const int Elem) // разность с элементом
+TSet TSet::operator-(const int Elem) // разность с элементом
 {
-  if (Elem < 0 || Elem >= MaxPower)
-    throw out_of_range("Element out of range");
-
-  TSet result(*this);
-  result.DelElem(Elem);
-  return result;
+  return TSet(0);
 }
 
-template <typename TELEM>
-TSet<TELEM> TSet<TELEM>::operator*(const TSet &s) // пересечение
+TSet TSet::operator*(const TSet& s) // пересечение
 {
-  int newMaxPower = max(MaxPower, s.MaxPower);
-  TSet result(newMaxPower);
-  result.BitField = BitField & s.BitField;
-  return result;
+  return TSet(0);
 }
 
-template <typename TELEM>
-TSet<TELEM> TSet<TELEM>::operator~(void) // дополнение
+TSet TSet::operator~(void) // дополнение
 {
-  TSet result(MaxPower);
-  result.BitField = ~BitField;
-  return result;
+  return TSet(0);
 }
 
 // перегрузка ввода/вывода
 
-template <typename TELEM>
-istream& operator>>(istream& istr, TSet<TELEM>& s) {
-    int elem;
-    while (istr >> elem) {
-        if (elem >= 0 && elem < s.MaxPower) {
-            s.InsElem(elem);
-        }
-    }
-    return istr;
+istream& operator>>(istream& istr, TSet& s) // ввод
+{
+  return istr;
 }
 
-// Реализация оператора вывода
-template <typename TELEM>
-ostream& operator<<(ostream& ostr, const TSet<TELEM>& s) {
-    ostr << "{ ";
-    for (int i = 0; i < s.MaxPower; i++) {
-        if (s.IsMember(i)) {
-            ostr << i << " ";
-        }
-    }
-    ostr << "}";
-    return ostr;
+ostream& operator<<(ostream& ostr, const TSet& s) // вывод
+{
+	return ostr;
 }
-
-// Явное инстанцирование для часто используемых типов
-template class TSet<unsigned int>;
-template class TSet<unsigned long>;
-
-// Явное инстанцирование операторов
-template istream& operator>> <unsigned int>(istream& istr, TSet<unsigned int>& s);
-template ostream& operator<< <unsigned int>(ostream& ostr, const TSet<unsigned int>& s);
-template istream& operator>> <unsigned long>(istream& istr, TSet<unsigned long>& s);
-template ostream& operator<< <unsigned long>(ostream& ostr, const TSet<unsigned long>& s);
-
-
