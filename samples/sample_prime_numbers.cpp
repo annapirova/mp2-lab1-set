@@ -15,7 +15,7 @@
 #include "tbitfield.h"
 
 int main1()
-{
+{/*
   int n, m, k, count;
 
   setlocale(LC_ALL, "Russian");
@@ -49,7 +49,29 @@ int main1()
     }
   cout << endl;
   cout << "В первых " << n << " числах " << count << " простых" << endl;
-  return 0;
+
+  return 0;*/
+    const int size = 40;
+    TBitField bf(size), negBf(size), expNegBf(size);
+
+    bf.SetBit(10);
+    negBf = ~bf;
+    for (int i = 0; i < size; ++i)
+    {
+        if (negBf.GetBit(i))
+        {
+            std::cout << 1 << ' ' << i << std::endl;
+        }
+        else
+        {
+            std::cout << 0 << ' ' << i << std::endl;
+        }
+    }
+
+    for (int i = 0; i < size; i++)
+        expNegBf.SetBit(i);
+    expNegBf.ClrBit(10);
+    return 0;
 }
 #else
 
@@ -99,6 +121,6 @@ int main()
 int main()
 {
 	TBitField bf(1);
-
+    main1();
 	return 0;
 }

@@ -13,11 +13,11 @@ TBitField::TBitField(int len)
 {
 	if (len < 0) throw "negative length";
 	BitLen = len;
-	MemLen = len / BITS_IN_ONE_MEM + 1;
+	MemLen = (len + BITS_IN_ONE_MEM - 1) / BITS_IN_ONE_MEM;
 	pMem = new TELEM[MemLen];
-	for (int i = 0; i < BitLen; ++i)
+	for (int i = 0; i < MemLen; ++i)
 	{
-		this->ClrBit(i);
+		pMem[i] = 0;
 	}
 }
 
@@ -26,6 +26,10 @@ TBitField::TBitField(const TBitField& bf) // конструктор копиро
 	BitLen = bf.BitLen;
 	MemLen = bf.MemLen;
 	pMem = new TELEM[MemLen];
+	for (int i = 0; i < MemLen; ++i)
+	{
+		pMem[i] = bf.pMem[i];
+	}
 }
 
 TBitField::~TBitField()
@@ -68,9 +72,8 @@ void TBitField::ClrBit(const int n) // очистить бит
 {
 	if (n < 0) throw "negative index";
 	if (n > this->GetLength()) throw "index is out of range";
-	TELEM zero = 0;
-	zero = zero ^ zero;
-	pMem[GetMemIndex(n)] = pMem[GetMemIndex(n)] & zero;
+	TELEM amask = ~GetMemMask(n);
+	pMem[GetMemIndex(n)] = pMem[GetMemIndex(n)] & amask;
 }
 
 int TBitField::GetBit(const int n) const // получить значение бита
@@ -84,46 +87,151 @@ int TBitField::GetBit(const int n) const // получить значение б
 
 TBitField& TBitField::operator=(const TBitField & bf) // присваивание
 {
+	delete[] pMem;
 	BitLen = bf.BitLen;
 	MemLen = bf.MemLen;
 	pMem = new TELEM[MemLen];
-	return TBitField(bf);
+	for (int i = 0; i < MemLen; ++i)
+	{
+		pMem[i] = bf.pMem[i];
+	}
+	return TBitField(bf); // what to return?
 }
 
 int TBitField::operator==(const TBitField & bf) const // сравнение
 {
-	if (BitLen == bf.GetLength())  return 1; 
-	else return 0;
+	if (BitLen != bf.GetLength()) return 0;
+	int flag = 1;
+	for (int i = 0; i < BitLen; ++i)
+	{
+		if (this->GetBit(i) != bf.GetBit(i)) flag = 0;
+	}
+	return flag;
 }
 
 int TBitField::operator!=(const TBitField & bf) const // сравнение
 {
-	return 0;
+	if (BitLen != bf.GetLength()) return 1;
+	int flag = 0;
+	for (int i = 0; i < BitLen; ++i)
+	{
+		if (this->GetBit(i) != bf.GetBit(i)) flag = 1;
+	}
+	return flag;
 }
 
 TBitField TBitField::operator|(const TBitField & bf) // операция "или"
 {
-	return TBitField(0);
+	TBitField temp(0);
+	int lesser = 0;
+	if (BitLen > bf.BitLen) 
+	{
+		temp = *this;
+		lesser = bf.BitLen;
+	}
+	else {
+		
+		temp = bf;
+		lesser = BitLen;
+	}
+	for (int i = 0; i < lesser; ++i)
+	{
+		if (this->GetBit(i) + bf.GetBit(i))
+		{
+			temp.SetBit(i);
+		}
+	}
+	return temp;
 }
 
 TBitField TBitField::operator&(const TBitField & bf) // операция "и"
 {
-	return TBitField(0);
+	TBitField temp(max(BitLen, bf.BitLen));
+	if (BitLen == bf.BitLen) {
+		for (int i = 0; i < BitLen; ++i)
+		{
+			if (this->GetBit(i) * bf.GetBit(i)) temp.SetBit(i);
+		}
+	}
+	int lesser = min(BitLen, bf.BitLen);
+	for (int i = 0; i < lesser; ++i)
+	{
+		if (this->GetBit(i) * bf.GetBit(i)) temp.SetBit(i);
+	}
+	/*if (BitLen > bf.BitLen)
+	{
+		temp = TBitField(BitLen);
+		lesser = bf.BitLen;
+		for (int i = lesser; i < temp.BitLen; ++i)
+		{
+			if (this->GetBit(i)) {
+				temp.SetBit(i);
+			}
+			else {
+				temp.ClrBit(i);
+			}
+		}
+	}
+	else {
+
+		temp = TBitField(bf.BitLen);
+		lesser = BitLen;
+		for (int i = lesser; i < temp.BitLen; ++i)
+		{
+			if (bf.GetBit(i)) {
+				temp.SetBit(i);
+			}
+			else {
+				temp.ClrBit(i);
+			}
+		}
+	}
+	for (int i = 0; i < lesser; ++i)
+	{
+		if (this->GetBit(i) * bf.GetBit(i)) temp.SetBit(i);
+	}*/
+	
+	return temp;
 }
 
 TBitField TBitField::operator~(void) // отрицание
 {
-  return TBitField(0);
+	TBitField temp(BitLen);
+	for (int i = 0; i < BitLen; ++i)
+	{
+		if (this->GetBit(i)) 
+		{
+			temp.ClrBit(i);
+		}
+		else 
+		{
+			temp.SetBit(i);
+		}
+	}
+	return temp;
 }
 
 // ввод/вывод
 
 istream& operator>>(istream & istr, TBitField & bf) // ввод
 {
-  return istr;
+	string InputData;
+	istr >> InputData;
+
+	for (int i = 0; i < bf.MemLen; ++i) bf.pMem[i] = (TELEM)0;
+
+	for (int i = 0; i < bf.GetLength(); ++i) {
+		if (InputData[i] == '1') bf.SetBit(bf.GetLength() - i);
+	}
+
+	return istr;
 }
 
 ostream& operator<<(ostream & ostr, const TBitField & bf) // вывод
 {
+	for (int i = bf.BitLen - 1; i >= 0; i--) {
+		ostr << bf.GetBit(i);
+	}
+
 	return ostr;
 }

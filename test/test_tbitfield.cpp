@@ -248,7 +248,6 @@ TEST(TBitField, invert_plus_and_operator_on_different_size_bitfield)
   secondBf.SetBit(70);
   //00001000.....10000000
 
-  testBf.SetBit(70);
 
   EXPECT_EQ(testBf, secondBf & negFirstBf);
 }
