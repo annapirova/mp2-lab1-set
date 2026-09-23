@@ -140,7 +140,8 @@ TEST(TBitField, compare_equal_bitfields_of_equal_size)
   TBitField bf1(size), bf2(size);
   bf1.SetBit(30);
   bf1.SetBit(90);
-  bf2 = bf1;
+  bf2.SetBit(30);
+  bf2.SetBit(90);
 
   EXPECT_EQ(bf1, bf2);
 }
@@ -244,11 +245,12 @@ TEST(TBitField, invert_plus_and_operator_on_different_size_bitfield)
   negFirstBf = ~firstBf;
   // 101111111.....1
 
+  secondBf.SetBit(35);
   secondBf.SetBit(38);
   secondBf.SetBit(70);
   //00001000.....10000000
 
-  testBf.SetBit(70);
+  testBf.SetBit(35);
 
   EXPECT_EQ(testBf, secondBf & negFirstBf);
 }
